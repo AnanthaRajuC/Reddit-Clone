@@ -2,56 +2,98 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>io.github.anantharajuc</groupId>
 	<artifactId>Reddit-Clone</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<name>Reddit-Clone</name>
 	<description>Reddit Clone</description>
+	
+	<!-- Start - Project Owner -->
+	<developers>
+		<developer>
+			<name>Anantha Raju C</name>
+			<email>arcswdev@gmail.com</email>
+			<timezone>UTC+05:30</timezone>
+		</developer>
+	</developers>
+	<!-- End - Project Owner -->
+	
+	<!-- Start - Source Repository -->
+    <scm>
+        <connection>https://github.com/Spring-Boot-Framework/Reddit-Clone.git</connection>
+        <developerConnection>git@github.com:Spring-Boot-Framework/Reddit-Clone.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <!-- End - Source Repository -->
+    
+    <!-- Start - Issue Management -->
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/Spring-Boot-Framework/Reddit-Clone/issues</url>
+    </issueManagement>
+    <!-- End - Issue Management -->
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+	
+		<!-- Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
+		<!-- Send email using Java Mail and Spring Framework's JavaMailSender. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		
+		<!-- Highly customizable authentication and access-control framework for Spring applications. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		
+		<!-- Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Provides fast application restarts, LiveReload, and configurations for enhanced development experience. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- MySQL JDBC and R2DBC driver. -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- Java annotation library which helps to reduce boilerplate code. -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -63,6 +105,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
@@ -72,6 +115,7 @@
 
 	<build>
 		<plugins>
+			<!-- Package as an executable jar/war. -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
