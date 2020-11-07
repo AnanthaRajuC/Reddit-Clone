@@ -71,6 +71,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<!-- Supports built in (or custom) endpoints that let you monitor and manage your application - such as application health, metrics, sessions, etc. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 		<!-- Provides fast application restarts, LiveReload, and configurations for enhanced development experience. -->
 		<dependency>
@@ -111,8 +117,19 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>6.1.6.Final</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator-annotation-processor</artifactId>
+		    <version>6.1.6.Final</version>
+		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<!-- Package as an executable jar/war. -->

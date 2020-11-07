@@ -1,0 +1,10 @@
+${Ansi.GREEN}  _____          _     _ _ _      _____ _                  
+${Ansi.GREEN} |  __ \        | |   | (_) |    / ____| |                 
+${Ansi.GREEN} | |__) |___  __| | __| |_| |_  | |    | | ___  _ __   ___ 
+${Ansi.GREEN} |  _  // _ \/ _` |/ _` | | __| | |    | |/ _ \| '_ \ / _ \
+${Ansi.GREEN} | | \ \  __/ (_| | (_| | | |_  | |____| | (_) | | | |  __/
+${Ansi.GREEN} |_|  \_\___|\__,_|\__,_|_|\__|  \_____|_|\___/|_| |_|\___|
+
+${Ansi.RED} :: Spring Boot ${spring.application.name} ${Ansi.DEFAULT}      
+${Ansi.RED} :: Spring Boot ${spring-boot.version} ${Ansi.DEFAULT}   
+${Ansi.RED} :: Spring Boot ${spring-boot.formatted-version} ${Ansi.DEFAULT}
