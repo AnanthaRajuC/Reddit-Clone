@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.Instant;
 
 import static javax.persistence.FetchType.LAZY;
@@ -17,6 +20,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Entity
 @Table(name="verification_token")
+@EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(callSuper=false)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class VerificationToken extends AuditEntity

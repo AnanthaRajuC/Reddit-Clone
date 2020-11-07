@@ -44,6 +44,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<modelmapper.version>2.3.8</modelmapper.version>
 	</properties>
 
 	<dependencies>
@@ -77,6 +78,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		
+		<!-- A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 		<!-- Provides fast application restarts, LiveReload, and configurations for enhanced development experience. -->
 		<dependency>
@@ -105,6 +112,12 @@
 	      	<groupId>org.flywaydb</groupId>
 	      	<artifactId>flyway-core</artifactId>
 	    </dependency>
+	    
+	    <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
+        </dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

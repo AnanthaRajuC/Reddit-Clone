@@ -24,13 +24,15 @@ grant all privileges on *.* to 'USERNAME'@'IPADDRESS' with grant option;
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `created_date` datetime DEFAULT NULL,
-  `last_modified_date` datetime DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `email` varchar(255) DEFAULT NULL,
   `enabled` bit(1) DEFAULT NULL,
-  `password` varchar(15) DEFAULT NULL,
-  `username` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_email` (`email`),
+  UNIQUE KEY `UK_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -39,8 +41,8 @@ CREATE TABLE `user` (
 
 CREATE TABLE `verification_token` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `created_date` datetime DEFAULT NULL,
-  `last_modified_date` datetime DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `expiry_date` datetime DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,

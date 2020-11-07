@@ -9,11 +9,14 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,28 +28,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NoArgsConstructor
 @Entity
 @Table(name="user") 
+@EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(callSuper=false)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class User extends AuditEntity
 {
 	private static final long serialVersionUID = 1L;
 	
-	@Size(min=3, max = 15, message="username must be between 5 and 50 characters.")
-	@NotBlank(message = "Username is required")
-	@Column(name="username")
+	@Size(min=3, max=15, message="username must be between 5 and 50 characters.")
+	@Column(name="username", unique=true, nullable = false)
     String username;
 	
-	@Size(min=3, max = 15, message="password must be between 5 and 50 characters.")
+	@Column(name="enabled")
+    boolean enabled;
+
     @NotBlank(message = "Password is required")
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
-    @Column(name="password")
+    @Column(name="password", nullable = false)
     String password;
     
     @Email
     @NotEmpty(message = "Email is required")
-    @Column(name="email")
+    @Column(name="email", unique=true, nullable = false)
     String email;
-
-    @Column(name="enabled")
-    boolean enabled;
 }
