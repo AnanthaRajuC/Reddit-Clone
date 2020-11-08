@@ -1,5 +1,9 @@
 package io.github.anantharajuc.rc.service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -10,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.github.anantharajuc.rc.dto.UserDTO;
+import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.github.anantharajuc.rc.model.NotificationEmail;
 import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.model.VerificationToken;
@@ -45,7 +50,9 @@ public class AuthServiceImpl implements AuthService
 	public void signup(UserDTO userDto) 
 	{
 		User user;
+		
 		user = modelMapper.map(userDto, User.class); 
+		
 		user.setPassword(passwordEncoder.encode(userDto.getPassword())); 
 		user.setEnabled(false); 
 		
@@ -65,9 +72,41 @@ public class AuthServiceImpl implements AuthService
 		
 		verificationToken.setToken(token);
         verificationToken.setUser(user);
-        
+        verificationToken.setExpiryDate(Instant.now().plus(30, ChronoUnit.SECONDS));
+
         verificationTokenRepository.save(verificationToken);
         
 		return token;
+	}
+ 
+	@Override
+	public String verifyAccount(String token) 
+	{
+		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
+		
+		verificationToken.orElseThrow(() -> new SpringRedditException("Invalid Token!"));
+		
+		if(verificationToken.isPresent() && Instant.now().isBefore(verificationToken.get().getExpiryDate()))
+		{
+			fetchUserAndEnable(verificationToken.get());
+		}
+		else
+		{
+			return "token expired!";
+		}
+		return "Account Activated Successfully"; 
+	}
+
+	@Override
+	@Transactional
+	public void fetchUserAndEnable(VerificationToken verificationToken) 
+	{
+		String username = verificationToken.getUser().getUsername();
+		
+		User user = userRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("User does not exist"));
+	
+		user.setEnabled(true);
+		
+		userRepository.save(user);
 	}
 }
