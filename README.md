@@ -1,23 +1,47 @@
 # Reddit Clone
 
-One Paragraph of project description goes here
-
-This initially appeared on
-[gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2), but as
-I can no longer open that page as there are too many comments, I have
-moved it here.
+Backend of the clone of the popular social media platform [reddit](https://www.reddit.com/)
 
 ## Summary
 
+  - [Technology Stack](#technology-stack)
   - [Getting Started](#getting-started)
   - [Runing the tests](#running-the-tests)
   - [Deployment](#deployment)
   - [Built With](#built-with)
   - [Contributing](#contributing)
+  - [Reporting Issues and Suggesting Improvements](#reporting-issues-and-suggesting-improvements)
   - [Versioning](#versioning)
   - [Authors](#authors)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
+
+## Technology Stack
+
+### Data
+
+* 	[Flyway](https://flywaydb.org/) - Version control for database
+* 	[MySQL](https://www.mysql.com/) - Open-Source Relational Database Management System
+
+### Server - Backend
+
+* 	[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) - Java™ Platform, Standard Edition Development Kit
+* 	[Spring Boot](https://spring.io/projects/spring-boot) - Framework to ease the bootstrapping and development of new Spring Applications
+* 	[Maven](https://maven.apache.org/) - Dependency Management
+
+###  Libraries and Plugins
+
+* 	[Lombok](https://projectlombok.org/) - Never write another getter or equals method again, with one annotation your class has a fully featured builder, Automate your logging variables, and much more.
+
+### Others 
+
+* 	[git](https://git-scm.com/) - Free and Open-Source distributed version control system
+
+### External Tools & Services
+
+* 	[gitignore.io](https://www.toptal.com/developers/gitignore/api/java,eclipse,intellij) - Create useful .gitignore files for your project.
+*	[Dependabot](https://dependabot.com/) - Automated dependency updates.
+* 	[Postman](https://www.getpostman.com/) - API Development Environment (Testing Docmentation)
 
 ## Getting Started
 
@@ -27,25 +51,70 @@ for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+*	You need to have **MySQL** installed on your machine to run the application in **`dev`** profile. Using the `MySQL Workbench` or on any other MySQL client/console, create a database/schema named `sbat`. 
 
-    Give examples
+~~~sql
+-- create schema
+CREATE SCHEMA reddit_clone;
+
+-- use schema
+USE reddit_clone;
+
+-- Create user 
+create user 'reddit_clone'@'localhost' identified by 'reddit_clone';
+
+-- Grant privileges to user
+grant all privileges on *.* to 'reddit_clone'@'localhost' with grant option;
+~~~
+
+After creating the database/schema, you need to add your **MySQL** `username` and `password` in the `application-dev.properties` file on `src/main/resource`. The lines that must be modified are as follows:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/reddit_clone?useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.username=reddit_clone
+spring.datasource.password=reddit_clone
+```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development
-env running
+### Running the application with IDE
 
-Say what the step will be
+There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `io.github.anantharajuc.rc.RedditCloneApplication` class from your IDE.
 
-    Give the example
+* 	Download the zip or clone the Git repository.
+* 	Unzip the zip file (if you downloaded one)
+* 	Open Command Prompt and Change directory (cd) to folder containing pom.xml
+* 	Open Eclipse
+	* File -> Import -> Existing Maven Project -> Navigate to the folder where you unzipped the zip
+	* Select the project
+* 	Choose the Spring Boot Application file (search for @SpringBootApplication)
+* 	Right Click on the file and Run as Java Application
 
-And repeat
+### Running the application with Maven
 
-    until finished
+Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
 
-End with an example of getting some data out of the system or using it
-for a little demo
+```shell
+$ git clone https://github.com/Spring-Boot-Framework/Reddit-Clone.git
+$ cd Reddit-Clone
+$ mvn spring-boot:run
+```
+
+### Running the application with Executable JAR
+
+The code can also be built into a jar and then executed/run. Once the jar is built, run the jar by double clicking on it or by using the command 
+
+```shell
+$ git clone https://github.com/Spring-Boot-Framework/Reddit-Clone.git
+$ cd Reddit-Clone
+$ mvn package -DskipTests
+$ java -jar target/Reddit-Clone-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+```
+
+To shutdown the jar, follow the below mentioned steps on a Windows machine.
+
+*	In command prompt execute the **jcmd** command to print a list of all running Java processes
+*	**Taskkill /PID PROCESS_ID_OF_RUNNING_APP /F** execute this command by replacing the **PROCESS_ID_OF_RUNNING_APP** with the actual process id of the running jar found out from executing the previous command
 
 ## Running the tests
 
@@ -79,6 +148,15 @@ Add additional notes about how to deploy this on a live system
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
 of conduct, and the process for submitting pull requests to us.
 
+## Reporting Issues and Suggesting Improvements
+
+This Project uses GitHub's integrated issue tracking system to record bugs and feature requests. If you want to raise an issue, please follow the recommendations below:
+
+* 	Before you log a bug, please [search the issue tracker](https://github.com/Spring-Boot-Framework/Reddit-Clone/search?type=Issues) to see if someone has already reported the problem.
+* 	If the issue doesn't already exist, [create a new issue](https://github.com/Spring-Boot-Framework/Reddit-Clone/issues/new)
+* 	Please provide as much information as possible with the issue report.
+* 	If you need to paste code, or include a stack trace use Markdown +++```+++ escapes before and after your text.
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions
@@ -87,21 +165,16 @@ repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
 
 ## Authors
 
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
+  - **Anantha Raju C** - [AnanthaRajuC](https://github.com/AnanthaRajuC)
 
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
+See also the list of [contributors](https://github.com/Spring-Boot-Framework/Reddit-Clone/graphs/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
+- This project is licensed under the [MIT License](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details
+
+- FOSSA third-party code, license compliance and vulnerabilities
 
 ## Acknowledgments
 
-  - Hat tip to anyone whose code was used
-  - Inspiration
-  - etc
+  - https://github.com/SaiUpadhyayula/spring-reddit-clone is used as a starting point/reference for this project.
