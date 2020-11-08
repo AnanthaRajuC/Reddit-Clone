@@ -1,5 +1,7 @@
 # Reddit Clone
 
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone?ref=badge_shield)
+
 Backend of the clone of the popular social media platform [reddit](https://www.reddit.com/)
 
 ## Summary
@@ -138,15 +140,12 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
+  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used for the Code of Conduct
+  - [Creative Commons](https://creativecommons.org/) - Used to choose the license
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Reporting Issues and Suggesting Improvements
 
