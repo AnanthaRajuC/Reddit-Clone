@@ -1,4 +1,6 @@
 # Reddit Clone
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone?ref=badge_shield)
+
 
 One Paragraph of project description goes here
 
@@ -18,6 +20,9 @@ moved it here.
   - [Authors](#authors)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone?ref=badge_large)
 
 ## Getting Started
 
