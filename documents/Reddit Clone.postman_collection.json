@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "987c8664-3bf2-4484-9f90-3688b5f0c9e8",
+		"name": "Reddit Clone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"email\":\"example@domain.com\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				},
+				"description": "user signup"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

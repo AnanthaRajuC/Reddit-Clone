@@ -8,6 +8,7 @@ Backend of the clone of the popular social media platform [reddit](https://www.r
 
   - [Technology Stack](#technology-stack)
   - [Getting Started](#getting-started)
+  - [Explore the APIs](#explore-the-apis)
   - [Runing the tests](#running-the-tests)
   - [Deployment](#deployment)
   - [Built With](#built-with)
@@ -53,7 +54,7 @@ for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-*	You need to have **MySQL** installed on your machine to run the application in **`dev`** profile. Using the `MySQL Workbench` or on any other MySQL client/console, create a database/schema named `sbat`. 
+*	You need to have **MySQL** installed on your machine to run the application in **`dev`** profile. Using the `MySQL Workbench` or on any other MySQL client/console, create a database/schema named `reddit_clone`. 
 
 ~~~sql
 -- create schema
@@ -76,6 +77,10 @@ spring.datasource.url=jdbc:mysql://localhost:3306/reddit_clone?useSSL=false&allo
 spring.datasource.username=reddit_clone
 spring.datasource.password=reddit_clone
 ```
+
+### EER Diagram
+
+<img src="documents\reddit-clone-eer-diagram.png"/>
 
 ### Installing
 
@@ -118,6 +123,27 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 *	In command prompt execute the **jcmd** command to print a list of all running Java processes
 *	**Taskkill /PID PROCESS_ID_OF_RUNNING_APP /F** execute this command by replacing the **PROCESS_ID_OF_RUNNING_APP** with the actual process id of the running jar found out from executing the previous command
 
+## Explore the APIs
+
+* 	Postman Collection for offline testing is available in the **documents** folder.
+
+### Application URLs
+
+|             URL                        |  Method | Remarks | Sample Valid Request Body |
+|----------------------------------------|---------|---------|---------------------------|
+|`http://localhost:8080/api/auth/signup` | POST    |         | [JSON](#signup)           |
+
+### Sample Valid JSON Request Bodys
+
+##### <a id="signup">Signup -> /api/auth/signup</a>
+```json
+{
+    "username":"johndoe",
+    "email":"domain@example.com",
+    "password":"abcd1234"
+}
+```
+
 ## Running the tests
 
 Explain how to run the automated tests for this system
@@ -158,9 +184,7 @@ This Project uses GitHub's integrated issue tracking system to record bugs and f
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository(https://github.com/Spring-Boot-Framework/Reddit-Clone/tags).
 
 ## Authors
 
@@ -173,6 +197,8 @@ See also the list of [contributors](https://github.com/Spring-Boot-Framework/Red
 - This project is licensed under the [MIT License](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details
 
 - FOSSA third-party code, license compliance and vulnerabilities
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone?ref=badge_large)
 
 ## Acknowledgments
 
