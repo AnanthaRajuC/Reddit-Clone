@@ -33,6 +33,6 @@ public class VerificationToken extends AuditEntity
     @Column(name="expiry_date")
     Instant expiryDate;
 	
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch=LAZY)
     User user;
 }

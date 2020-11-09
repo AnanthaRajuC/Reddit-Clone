@@ -12,6 +12,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -21,6 +23,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Entity
 @Table(name="sub_reddit") 
+@EntityListeners(AuditingEntityListener.class)
 @Builder
 @EqualsAndHashCode(callSuper=false)
 @FieldDefaults(level=AccessLevel.PRIVATE)
@@ -41,6 +44,6 @@ public class Subreddit extends AuditEntity
     @OneToMany(fetch = LAZY)
     List<Post> posts;
     
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch=LAZY)
     User user;
 }

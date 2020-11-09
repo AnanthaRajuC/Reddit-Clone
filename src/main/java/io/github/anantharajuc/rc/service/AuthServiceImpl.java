@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import io.github.anantharajuc.rc.controller.AuthController;
 import io.github.anantharajuc.rc.dto.AuthenticationResponse;
 import io.github.anantharajuc.rc.dto.UserLoginRequestDTO;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
@@ -27,8 +28,10 @@ import io.github.anantharajuc.rc.model.VerificationToken;
 import io.github.anantharajuc.rc.repository.UserRepository;
 import io.github.anantharajuc.rc.repository.VerificationTokenRepository;
 import io.github.anantharajuc.rc.security.JwtProvider;
+import lombok.extern.log4j.Log4j2;
 
 @Service
+@Log4j2
 public class AuthServiceImpl implements AuthService
 {
 	private final ModelMapper modelMapper;
@@ -126,6 +129,8 @@ public class AuthServiceImpl implements AuthService
 	@Override
 	public AuthenticationResponse login(UserLoginRequestDTO userLoginRequestDTO) 
 	{
+		log.info("/api/auth/login controller");	
+		
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLoginRequestDTO.getUsername(), userLoginRequestDTO.getPassword()));
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);

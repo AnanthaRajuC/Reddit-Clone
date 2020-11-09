@@ -85,7 +85,7 @@ spring.datasource.password=reddit_clone
 keytool -genkey -alias redditclone -keyalg RSA -keystore redditclone.jks -keysize 2048
 ```
 
-<img src="documents\reddit-clone-jks-generation.png"/>
+<img src="documents\reddit-clone-jks-generation.PNG"/>
 
 ### EER Diagram
 
