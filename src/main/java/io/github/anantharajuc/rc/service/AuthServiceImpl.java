@@ -2,24 +2,31 @@ package io.github.anantharajuc.rc.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import io.github.anantharajuc.rc.dto.UserDTO;
+import io.github.anantharajuc.rc.dto.AuthenticationResponse;
+import io.github.anantharajuc.rc.dto.UserLoginRequestDTO;
+import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.github.anantharajuc.rc.model.NotificationEmail;
 import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.model.VerificationToken;
 import io.github.anantharajuc.rc.repository.UserRepository;
 import io.github.anantharajuc.rc.repository.VerificationTokenRepository;
+import io.github.anantharajuc.rc.security.JwtProvider;
 
 @Service
 public class AuthServiceImpl implements AuthService
@@ -29,6 +36,12 @@ public class AuthServiceImpl implements AuthService
 	private final PasswordEncoder passwordEncoder;
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final MailServiceImpl mailServiceImpl;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtProvider jwtProvider;
 	
 	public AuthServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder, VerificationTokenRepository verificationTokenRepository, MailServiceImpl mailServiceImpl) 
 	{
@@ -47,7 +60,7 @@ public class AuthServiceImpl implements AuthService
 	
 	@Override
 	@Transactional
-	public void signup(UserDTO userDto) 
+	public void signup(UserSignupRequestDTO userDto) 
 	{
 		User user;
 		
@@ -108,5 +121,17 @@ public class AuthServiceImpl implements AuthService
 		user.setEnabled(true);
 		
 		userRepository.save(user);
+	}
+
+	@Override
+	public AuthenticationResponse login(UserLoginRequestDTO userLoginRequestDTO) 
+	{
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLoginRequestDTO.getUsername(), userLoginRequestDTO.getPassword()));
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		String token = jwtProvider.generateToken(authentication);
+		
+		return new AuthenticationResponse(token, userLoginRequestDTO.getUsername());
 	}
 }

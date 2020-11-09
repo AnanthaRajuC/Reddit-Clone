@@ -35,20 +35,20 @@ public class User extends AuditEntity
 {
 	private static final long serialVersionUID = 1L;
 	
+	@Email
+    @NotEmpty(message = "Email is required")
+    @Column(name="email", unique=true, nullable = false)
+    String email;
+	
 	@Size(min=3, max=15, message="username must be between 5 and 50 characters.")
 	@Column(name="username", unique=true, nullable = false)
     String username;
-	
-	@Column(name="enabled")
-    boolean enabled;
 
     @NotBlank(message = "Password is required")
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
     @Column(name="password", nullable = false)
     String password;
-    
-    @Email
-    @NotEmpty(message = "Email is required")
-    @Column(name="email", unique=true, nullable = false)
-    String email;
+
+    @Column(name="enabled")
+    boolean enabled;
 }

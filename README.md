@@ -11,7 +11,6 @@ Backend of the clone of the popular social media platform [reddit](https://www.r
   - [Explore the APIs](#explore-the-apis)
   - [Runing the tests](#running-the-tests)
   - [Deployment](#deployment)
-  - [Built With](#built-with)
   - [Contributing](#contributing)
   - [Reporting Issues and Suggesting Improvements](#reporting-issues-and-suggesting-improvements)
   - [Versioning](#versioning)
@@ -45,6 +44,8 @@ Backend of the clone of the popular social media platform [reddit](https://www.r
 * 	[gitignore.io](https://www.toptal.com/developers/gitignore/api/java,eclipse,intellij) - Create useful .gitignore files for your project.
 *	[Dependabot](https://dependabot.com/) - Automated dependency updates.
 * 	[Postman](https://www.getpostman.com/) - API Development Environment (Testing Docmentation)
+*	[Mailtrap](https://mailtrap.io/) - Safe Email Testing for Staging & Development.
+*   [Contributor Covenant](https://www.contributor-covenant.org/) - Used for the Code of Conduct.
 
 ## Getting Started
 
@@ -77,6 +78,14 @@ spring.datasource.url=jdbc:mysql://localhost:3306/reddit_clone?useSSL=false&allo
 spring.datasource.username=reddit_clone
 spring.datasource.password=reddit_clone
 ```
+
+*	A Java Keystore File is required to generate JSON Web Token.
+
+```shell
+keytool -genkey -alias redditclone -keyalg RSA -keystore redditclone.jks -keysize 2048
+```
+
+<img src="documents\reddit-clone-jks-generation.png"/>
 
 ### EER Diagram
 
@@ -129,9 +138,10 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 
 ### Application URLs
 
-|             URL                        |  Method | Remarks | Sample Valid Request Body |
-|----------------------------------------|---------|---------|---------------------------|
-|`http://localhost:8080/api/auth/signup` | POST    |         | [JSON](#signup)           |
+|                                               URL                        | Method | Remarks | Sample Valid Request Body |
+|--------------------------------------------------------------------------|--------|---------|---------------------------|
+|`http://localhost:8080/api/auth/signup`                                   | POST   |         | [JSON](#signup)           |
+|`http://localhost:8080/api/auth/accountVerification/{verification-token}` | GET    |         |                           |
 
 ### Sample Valid JSON Request Bodys
 
@@ -146,7 +156,9 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+```shell
+$ mvn test       //Run all the unit test classes.
+```
 
 ### Break down into end to end tests
 
@@ -164,11 +176,6 @@ Explain what these tests test and why
 
 Add additional notes about how to deploy this on a live system
 
-## Built With
-
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose the license
-
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
@@ -184,7 +191,7 @@ This Project uses GitHub's integrated issue tracking system to record bugs and f
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository(https://github.com/Spring-Boot-Framework/Reddit-Clone/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository(https://github.com/Spring-Boot-Framework/Reddit-Clone/tags)
 
 ## Authors
 

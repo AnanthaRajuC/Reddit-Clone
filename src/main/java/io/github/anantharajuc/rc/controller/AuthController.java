@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.anantharajuc.rc.dto.UserDTO;
+import io.github.anantharajuc.rc.dto.AuthenticationResponse;
+import io.github.anantharajuc.rc.dto.UserLoginRequestDTO;
+import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.service.AuthServiceImpl;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -22,7 +24,7 @@ public class AuthController
 	private AuthServiceImpl authServiceImpl;
 
 	@PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody UserDTO userDto) 
+    public ResponseEntity<String> signup(@RequestBody UserSignupRequestDTO userDto) 
 	{
 		authServiceImpl.signup(userDto);
 		
@@ -34,4 +36,10 @@ public class AuthController
 	{
         return new ResponseEntity<>(authServiceImpl.verifyAccount(token), OK);
     } 
-}
+	
+	@PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody UserLoginRequestDTO userLoginRequestDTO) 
+	{
+		return authServiceImpl.login(userLoginRequestDTO);
+    }
+} 

@@ -13,11 +13,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper=false)
-public class UserDTO extends AuditEntity
+public class UserLoginRequestDTO extends AuditEntity
 {
 	private static final long serialVersionUID = 1L;
 	
-	String email;
-    String username;
+	String username;
     String password;
 }

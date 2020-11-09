@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"email\":\"example@domain.com\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"raw": "{\r\n    \"username\":\"johndoe10\",\r\n    \"email\":\"example10@domain.com\",\r\n    \"password\":\"abcd1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -33,6 +33,36 @@
 					]
 				},
 				"description": "user signup"
+			},
+			"response": []
+		},
+		{
+			"name": "user login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"johndoe8\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
 			},
 			"response": []
 		}
