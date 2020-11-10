@@ -25,7 +25,9 @@ grant all privileges on *.* to 'USERNAME'@'IPADDRESS' with grant option;
 CREATE TABLE `sub_reddit` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_date` datetime DEFAULT NULL,
+  `created_by` varchar(255) NOT NULL,
   `last_modified_date` datetime DEFAULT NULL,
+  `last_modified_by` varchar(255) NOT NULL,
   `description` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,

@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.service;
+package io.github.anantharajuc.rc.authentication;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -17,12 +17,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import io.github.anantharajuc.rc.controller.AuthController;
-import io.github.anantharajuc.rc.dto.AuthenticationResponse;
-import io.github.anantharajuc.rc.dto.UserLoginRequestDTO;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
+import io.github.anantharajuc.rc.email.EmailServiceImpl;
+import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
-import io.github.anantharajuc.rc.model.NotificationEmail;
 import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.model.VerificationToken;
 import io.github.anantharajuc.rc.repository.UserRepository;
@@ -32,13 +30,13 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class AuthServiceImpl implements AuthService
+public class AuthenticationServiceImpl implements AuthenticationService
 {
 	private final ModelMapper modelMapper;
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final VerificationTokenRepository verificationTokenRepository;
-	private final MailServiceImpl mailServiceImpl;
+	private final EmailServiceImpl mailServiceImpl;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -46,7 +44,7 @@ public class AuthServiceImpl implements AuthService
 	@Autowired
 	private JwtProvider jwtProvider;
 	
-	public AuthServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder, VerificationTokenRepository verificationTokenRepository, MailServiceImpl mailServiceImpl) 
+	public AuthenticationServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder, VerificationTokenRepository verificationTokenRepository, EmailServiceImpl mailServiceImpl) 
 	{
 		this.modelMapper = modelMapper;
 		this.userRepository = userRepository;
@@ -60,6 +58,9 @@ public class AuthServiceImpl implements AuthService
 	
 	@Value("${mail.body}")
 	private String mailBody;
+	
+	@Value("${verification.token.validity}")
+	private Long verificationTokenValidity;
 	
 	@Override
 	@Transactional
@@ -76,7 +77,7 @@ public class AuthServiceImpl implements AuthService
 		
 		String token = generateVerificationToken(user);
 		
-		mailServiceImpl.sendMail(new NotificationEmail(mailSubject, user.getEmail(), mailBody+token));
+		mailServiceImpl.sendMail(new Email(mailSubject, user.getEmail(), mailBody+token+" This link is valid for the next "+verificationTokenValidity+" minute."));
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class AuthServiceImpl implements AuthService
 		
 		verificationToken.setToken(token);
         verificationToken.setUser(user);
-        verificationToken.setExpiryDate(Instant.now().plus(30, ChronoUnit.SECONDS));
+        verificationToken.setExpiryDate(Instant.now().plus(verificationTokenValidity, ChronoUnit.MINUTES));
 
         verificationTokenRepository.save(verificationToken);
         
@@ -100,17 +101,22 @@ public class AuthServiceImpl implements AuthService
 	{
 		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
 		
-		verificationToken.orElseThrow(() -> new SpringRedditException("Invalid Token!"));
-		
 		if(verificationToken.isPresent() && Instant.now().isBefore(verificationToken.get().getExpiryDate()))
 		{
 			fetchUserAndEnable(verificationToken.get());
 		}
+		else if(!verificationToken.isPresent())
+		{
+			return "invalid verification token, please check the verification link.";
+		}
 		else
 		{
-			return "token expired!";
+			verificationTokenRepository.deleteById(verificationToken.get().getId()); 
+			userRepository.deleteById(verificationToken.get().getId());
+			
+			return "token expired! Please register again.";
 		}
-		return "Account Activated Successfully"; 
+		return "Account Activated Successfully. Login to the application to start using it."; 
 	}
 
 	@Override

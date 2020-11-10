@@ -1,11 +1,9 @@
-package io.github.anantharajuc.rc.repository;
+package io.github.anantharajuc.rc.subreddit;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import io.github.anantharajuc.rc.model.Subreddit;
 
 /**
  * Repository class for <code>Subreddit</code> domain object. 

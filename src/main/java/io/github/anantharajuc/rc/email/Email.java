@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.email;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
-public class NotificationEmail 
+public class Email 
 {
     String subject;
     String recipient;

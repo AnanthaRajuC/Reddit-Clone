@@ -11,6 +11,8 @@ import javax.persistence.*;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import io.github.anantharajuc.rc.audit.AuditEntity;
+
 import java.time.Instant;
 
 import static javax.persistence.FetchType.LAZY;

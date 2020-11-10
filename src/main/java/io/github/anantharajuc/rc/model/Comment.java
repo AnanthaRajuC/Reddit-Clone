@@ -11,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import io.github.anantharajuc.rc.audit.AuditEntity;
+
 import static javax.persistence.FetchType.LAZY;
 
 /**

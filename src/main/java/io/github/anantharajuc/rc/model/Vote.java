@@ -11,6 +11,8 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import io.github.anantharajuc.rc.audit.AuditEntity;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Data

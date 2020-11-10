@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.dto;
+package io.github.anantharajuc.rc.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

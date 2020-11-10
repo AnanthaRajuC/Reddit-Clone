@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.service;
+package io.github.anantharajuc.rc.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,12 +12,11 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
-import io.github.anantharajuc.rc.model.NotificationEmail;
 import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class MailServiceImpl implements MailService
+public class EmailServiceImpl implements EmailService
 {
 	@Autowired
 	private TemplateEngine templateEngine;
@@ -39,7 +38,7 @@ public class MailServiceImpl implements MailService
 
 	@Override
 	@Async
-	public void sendMail(NotificationEmail notificationEmail) 
+	public void sendMail(Email notificationEmail) 
 	{
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 														          	MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);

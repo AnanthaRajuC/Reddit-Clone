@@ -1,15 +1,13 @@
-package io.github.anantharajuc.rc.service;
+package io.github.anantharajuc.rc.authentication;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import io.github.anantharajuc.rc.dto.AuthenticationResponse;
-import io.github.anantharajuc.rc.dto.UserLoginRequestDTO;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.model.VerificationToken;
 
-public interface AuthService 
+public interface AuthenticationService 
 {
 	void signup(UserSignupRequestDTO userDto);
 	

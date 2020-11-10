@@ -10,6 +10,9 @@ import lombok.experimental.FieldDefaults;
 
 import org.springframework.lang.Nullable;
 
+import io.github.anantharajuc.rc.audit.AuditEntity;
+import io.github.anantharajuc.rc.subreddit.Subreddit;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

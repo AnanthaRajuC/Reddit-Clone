@@ -1,6 +1,6 @@
 package io.github.anantharajuc.rc.dto;
 
-import io.github.anantharajuc.rc.model.AuditEntity;
+import io.github.anantharajuc.rc.audit.AuditEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

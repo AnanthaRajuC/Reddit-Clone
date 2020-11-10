@@ -1,12 +1,10 @@
-package io.github.anantharajuc.rc.controller;
+package io.github.anantharajuc.rc.subreddit;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.anantharajuc.rc.dto.SubredditDTO;
-import io.github.anantharajuc.rc.service.SubredditServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController

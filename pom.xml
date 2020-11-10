@@ -45,6 +45,11 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<modelmapper.version>2.3.8</modelmapper.version>
+		<jjwt-api.version>0.10.5</jjwt-api.version>
+		<jjwt-impl.version>0.10.5</jjwt-impl.version>
+		<jjwt-jackson.version>0.10.5</jjwt-jackson.version>
+		<hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
+		<hibernate-validator-annotation-processor.version>6.1.6.Final</hibernate-validator-annotation-processor.version>
 	</properties>
 
 	<dependencies>
@@ -93,52 +98,6 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- MySQL JDBC and R2DBC driver. -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		
-		<!-- Java annotation library which helps to reduce boilerplate code. -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		
-		<!-- Database migration. -->
-		<dependency>
-	      	<groupId>org.flywaydb</groupId>
-	      	<artifactId>flyway-core</artifactId>
-	    </dependency>
-	    
-	    <!-- JWT dependencies START -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.10.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <scope>runtime</scope>
-            <version>0.10.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <scope>runtime</scope>
-            <version>0.10.5</version>
-        </dependency>
-        <!-- JWT dependencies END -->
-	    
-	    <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>${modelmapper.version}</version>
-        </dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -157,16 +116,64 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Java annotation library which helps to reduce boilerplate code. -->
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- MySQL JDBC and R2DBC driver. -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Database migration. -->
+		<dependency>
+	      	<groupId>org.flywaydb</groupId>
+	      	<artifactId>flyway-core</artifactId>
+	    </dependency>
+	    
+	    <!-- Object Mapping -->
+	    <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
+        </dependency>
+        
+        <dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator</artifactId>
-		    <version>6.1.6.Final</version>
+		    <version>${hibernate-validator.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator-annotation-processor</artifactId>
-		    <version>6.1.6.Final</version>
+		    <version>${hibernate-validator-annotation-processor.version}</version>
 		</dependency>
+	    
+	    <!-- JWT dependencies START -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <scope>runtime</scope>
+            <version>${jjwt-impl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <scope>runtime</scope>
+            <version>${jjwt-jackson.version}</version>
+        </dependency>
+        <!-- JWT dependencies END -->
+        
 	</dependencies>
 	
 	<build>

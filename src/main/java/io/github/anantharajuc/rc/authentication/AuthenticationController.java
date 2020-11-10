@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.controller;
+package io.github.anantharajuc.rc.authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,31 +9,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.anantharajuc.rc.RedditCloneApplication;
-import io.github.anantharajuc.rc.dto.AuthenticationResponse;
-import io.github.anantharajuc.rc.dto.UserLoginRequestDTO;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
-import io.github.anantharajuc.rc.service.AuthServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 import static org.springframework.http.HttpStatus.OK;
 
-import java.time.LocalDateTime;
-
 @RestController
 @RequestMapping("/api/auth")
 @Log4j2
-public class AuthController 
+public class AuthenticationController 
 {
 	@Autowired
-	private AuthServiceImpl authServiceImpl;
+	private AuthenticationServiceImpl authServiceImpl;
 
 	@PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody UserSignupRequestDTO userDto) 
 	{
 		authServiceImpl.signup(userDto);
 		
-        return ResponseEntity.status(OK).body("User Registration Successful!");
+        return ResponseEntity.status(OK).body("User Registration Successful! Activate your account by following the instructions in the verification email.");
     }
 	
 	@GetMapping("accountVerification/{token}")

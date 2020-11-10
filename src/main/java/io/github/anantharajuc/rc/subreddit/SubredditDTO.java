@@ -1,6 +1,6 @@
-package io.github.anantharajuc.rc.dto;
+package io.github.anantharajuc.rc.subreddit;
 
-import io.github.anantharajuc.rc.model.AuditEntity;
+import io.github.anantharajuc.rc.audit.AuditEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +13,11 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper=false)
-public class UserLoginRequestDTO extends AuditEntity
+public class SubredditDTO extends AuditEntity
 {
 	private static final long serialVersionUID = 1L;
-	
-	String username;
-    String password;
+
+	String name;
+    String description;
+    Integer numberOfPosts;
 }

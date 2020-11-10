@@ -25,7 +25,9 @@ grant all privileges on *.* to 'USERNAME'@'IPADDRESS' with grant option;
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL,
   `last_modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `enabled` bit(1) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -42,7 +44,9 @@ CREATE TABLE `user` (
 CREATE TABLE `verification_token` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL,
   `last_modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(255) NOT NULL,
   `expiry_date` datetime DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,

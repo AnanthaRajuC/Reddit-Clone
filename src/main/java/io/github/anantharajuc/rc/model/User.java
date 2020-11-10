@@ -20,6 +20,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.github.anantharajuc.rc.audit.AuditEntity;
+
 /**
  * Simple JavaBean domain object representing a user.
  */

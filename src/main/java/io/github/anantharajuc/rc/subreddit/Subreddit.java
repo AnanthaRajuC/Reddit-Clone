@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.subreddit;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import io.github.anantharajuc.rc.audit.AuditEntity;
+import io.github.anantharajuc.rc.model.Post;
+import io.github.anantharajuc.rc.model.User;
 
 import java.util.List;
 

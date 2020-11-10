@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.audit;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -6,9 +6,12 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import io.github.anantharajuc.rc.model.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,9 +35,17 @@ public class AuditEntity extends BaseEntity
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     Date createdDate;
+	
+	@CreatedBy
+    @Column(name="created_by", nullable=false, updatable=false)
+	String createdBy;
 		
 	@Column(name="last_modified_date", nullable=true, updatable=true)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     Date lastModifiedDate;
+	
+	@LastModifiedBy
+    @Column(name="last_modified_by", nullable=false, updatable=true)
+	String lastModifiedBy;
 }
