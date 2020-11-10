@@ -6,44 +6,115 @@
 	},
 	"item": [
 		{
-			"name": "user signup",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"johndoe10\",\r\n    \"email\":\"example10@domain.com\",\r\n    \"password\":\"abcd1234\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "auth",
+			"item": [
+				{
+					"name": "user signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"email\":\"example@domain.com\",\r\n    \"password\":\"abcd1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						},
+						"description": "user signup"
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"password\":\"abcd1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/auth/signup",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"auth",
-						"signup"
-					]
-				},
-				"description": "user signup"
-			},
-			"response": []
+				{
+					"name": "user account verification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/verification/c3ddb562-2978-49b6-b2db-22078193faac",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verification",
+								"c3ddb562-2978-49b6-b2db-22078193faac"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "user login",
+			"name": "create subreddit",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJqb2huZG9lIn0.AxP3nP3qSdr-JCXa9Rv3lgzamcoFIeHkunoi5MXDco_Xs6foxUIC3Gqb_d4xIWbUMrxJstQrwQKKomKVsGnEZjfDV_L4zh_REaCDd88jBT6RH_JjLDsGOCOivJKykEfC5vultgBNNZ7HN28BglKFoMC40T4LwdASoN62NQ4UO3OXf1qYoktdisfQdfoSDgV5uqeHRNDK5uA9NU1G0J3ZRSvb95TJBF0z8zz80WufShTiZId8dHNtYSCvI5Mc70j2FMqVaeqD8Vc1GuMPKjBukgztY4vEf-Wz0YVw3PQH8aFFbxRNxQ3CuB48tDEMTk1ULbdGCYiabFfaofkwvOBCgQ",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"johndoe8\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"raw": "{\r\n    \"name\":\"5555555\",\r\n    \"description\":\"ggggg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -51,7 +122,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/auth/login",
+					"raw": "http://localhost:8080/api/v1/subreddit",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -59,8 +130,8 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"auth",
-						"login"
+						"v1",
+						"subreddit"
 					]
 				}
 			},

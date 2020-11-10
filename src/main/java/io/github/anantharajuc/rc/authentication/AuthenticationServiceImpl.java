@@ -23,13 +23,12 @@ import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.model.VerificationToken;
+import io.github.anantharajuc.rc.model.VerificationTokenEnum;
 import io.github.anantharajuc.rc.repository.UserRepository;
 import io.github.anantharajuc.rc.repository.VerificationTokenRepository;
 import io.github.anantharajuc.rc.security.JwtProvider;
-import lombok.extern.log4j.Log4j2;
 
 @Service
-@Log4j2
 public class AuthenticationServiceImpl implements AuthenticationService
 {
 	private final ModelMapper modelMapper;
@@ -90,20 +89,30 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		verificationToken.setToken(token);
         verificationToken.setUser(user);
         verificationToken.setExpiryDate(Instant.now().plus(verificationTokenValidity, ChronoUnit.MINUTES));
-
+        verificationToken.setStatus(VerificationTokenEnum.UNVERIFIED);
+        
         verificationTokenRepository.save(verificationToken);
         
 		return token;
 	}
  
 	@Override
+	@Transactional
 	public String verifyAccount(String token) 
 	{
 		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
-		
-		if(verificationToken.isPresent() && Instant.now().isBefore(verificationToken.get().getExpiryDate()))
+		 
+		if(verificationToken.isPresent() && verificationToken.get().getStatus().equals(VerificationTokenEnum.UNVERIFIED) &&Instant.now().isBefore(verificationToken.get().getExpiryDate()))
 		{
-			fetchUserAndEnable(verificationToken.get());
+			verificationToken.get().setStatus(VerificationTokenEnum.VERIFIED); 
+			
+			verificationTokenRepository.save(verificationToken.get());
+			
+			fetchUserAndEnable(verificationToken.get()); 
+		}
+		else if(verificationToken.isPresent() && verificationToken.get().getStatus().equals(VerificationTokenEnum.VERIFIED))
+		{
+			return "Account already verified.";
 		}
 		else if(!verificationToken.isPresent())
 		{
@@ -116,6 +125,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 			
 			return "token expired! Please register again.";
 		}
+		
 		return "Account Activated Successfully. Login to the application to start using it."; 
 	}
 
@@ -135,8 +145,6 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	@Override
 	public AuthenticationResponse login(UserLoginRequestDTO userLoginRequestDTO) 
 	{
-		log.info("/api/auth/login controller");	
-		
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLoginRequestDTO.getUsername(), userLoginRequestDTO.getPassword()));
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);

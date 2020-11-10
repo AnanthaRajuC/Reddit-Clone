@@ -6,16 +6,16 @@
 
 /*
 -- create schema
-CREATE SCHEMA [schema_name];
+CREATE SCHEMA reddit_clone;
 
 -- use schema
-USE [schema_name];
+USE reddit_clone;
 
 -- Create user 
-create user 'USERNAME'@'IPADDRESS' identified by 'PASSWORD';
+create user 'reddit_clone'@'localhost' identified by 'reddit_clone';
 
 -- Grant privileges to user
-grant all privileges on *.* to 'USERNAME'@'IPADDRESS' with grant option;
+grant all privileges on *.* to 'reddit_clone'@'localhost' with grant option;
  */
 
 --
@@ -49,6 +49,7 @@ CREATE TABLE `verification_token` (
   `last_modified_by` varchar(255) NOT NULL,
   `expiry_date` datetime DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKrdn0mss276m9jdobfhhn2qogw` (`user_id`),

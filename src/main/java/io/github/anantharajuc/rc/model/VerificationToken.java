@@ -34,6 +34,10 @@ public class VerificationToken extends AuditEntity
 	
     @Column(name="expiry_date")
     Instant expiryDate;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name="status", nullable = false)
+    VerificationTokenEnum status;
 	
     @OneToOne(fetch=LAZY)
     User user;

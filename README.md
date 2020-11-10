@@ -2,7 +2,7 @@
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone?ref=badge_shield)
 
-Backend of the clone of the popular social media platform [reddit](https://www.reddit.com/)
+Backend to the clone of the popular social media platform [reddit](https://www.reddit.com/)
 
 ## Summary
 
@@ -138,10 +138,12 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 
 ### Application URLs
 
-|                                               URL                        | Method | Remarks | Sample Valid Request Body |
-|--------------------------------------------------------------------------|--------|---------|---------------------------|
-|`http://localhost:8080/api/auth/signup`                                   | POST   |         | [JSON](#signup)           |
-|`http://localhost:8080/api/auth/accountVerification/{verification-token}` | GET    |         |                           |
+|                                          URL                        | Method |                    Remarks                    | Sample Valid Request Body |
+|---------------------------------------------------------------------|--------|-----------------------------------------------|---------------------------|
+|`http://localhost:8080/api/v1/auth/signup`                           | POST   |                                               | [JSON](#signup)           |
+|`http://localhost:8080/api/v1/auth/verification/{verification-token}`| GET    |                                               |                           |
+|`http://localhost:8080/api/v1/auth/login`                            | POST   |Bearer Token is generated                      | [JSON](#login)            |
+|`http://localhost:8080/api/v1/subreddit`                             | POST   |Bearer Token should be passed for authorization| [JSON](#subreddit)        |
 
 ### Sample Valid JSON Request Bodys
 
@@ -151,6 +153,22 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
     "username":"johndoe",
     "email":"domain@example.com",
     "password":"abcd1234"
+}
+```
+
+##### <a id="login">Login -> /api/auth/login</a>
+```json
+{
+    "username":"johndoe",
+    "password":"abcd1234"
+}
+```
+
+##### <a id="subreddit">Subreddit -> /api/subreddit</a>
+```json
+{
+    "name":"my-cool-subreddit",
+    "description":"My subreddit for all thing cool."
 }
 ```
 
@@ -191,7 +209,7 @@ This Project uses GitHub's integrated issue tracking system to record bugs and f
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository(https://github.com/Spring-Boot-Framework/Reddit-Clone/tags)
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/Spring-Boot-Framework/Reddit-Clone/tags)
 
 ## Authors
 
