@@ -46,7 +46,7 @@
 		<java.version>1.8</java.version>
 		<modelmapper.version>2.3.8</modelmapper.version>
 		<jjwt-api.version>0.11.2</jjwt-api.version>
-		<jjwt-impl.version>0.10.5</jjwt-impl.version>
+		<jjwt-impl.version>0.11.2</jjwt-impl.version>
 		<jjwt-jackson.version>0.11.2</jjwt-jackson.version>
 		<hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
 		<hibernate-validator-annotation-processor.version>6.1.6.Final</hibernate-validator-annotation-processor.version>
