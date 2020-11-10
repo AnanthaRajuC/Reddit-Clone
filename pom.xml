@@ -50,6 +50,8 @@
 		<jjwt-jackson.version>0.10.5</jjwt-jackson.version>
 		<hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
 		<hibernate-validator-annotation-processor.version>6.1.6.Final</hibernate-validator-annotation-processor.version>
+		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<springfox-swagger-ui.version>2.10.5</springfox-swagger-ui.version>
 	</properties>
 
 	<dependencies>
@@ -115,6 +117,21 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Start - API documentation with Swagger -->
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger2.version}</version>
+		</dependency>
+		<!-- Swagger UI -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger-ui.version}</version>
+		</dependency>
+		<!-- End - API documentation with Swagger -->
 		
 		<!-- Java annotation library which helps to reduce boilerplate code. -->
 		<dependency>

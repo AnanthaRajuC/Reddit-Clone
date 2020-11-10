@@ -1,6 +1,27 @@
 # Reddit Clone
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FReddit-Clone?ref=badge_shield)
+[![GitHub issues](https://img.shields.io/github/issues/Spring-Boot-Framework/Reddit-Clone)](https://github.com/Spring-Boot-Framework/Reddit-Clone/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Spring-Boot-Framework/Reddit-Clone)](https://github.com/Spring-Boot-Framework/Reddit-Clone/network)
+[![GitHub stars](https://img.shields.io/github/stars/Spring-Boot-Framework/Reddit-Clone)](https://github.com/Spring-Boot-Framework/Reddit-Clone/stargazers)
+
+<p align="center">
+	<a alt="GitHub last commit">
+        <img src="https://img.shields.io/github/last-commit/Spring-Boot-Framework/Reddit-Clone" />
+    </a>
+	<a alt="License">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+    </a>
+	<a alt="GitHub language count">
+        <img src="https://img.shields.io/github/languages/count/Spring-Boot-Framework/Reddit-Clone" />
+    </a>
+	<a alt="GitHub code size in bytes">
+        <img src="https://img.shields.io/github/languages/code-size/Spring-Boot-Framework/Reddit-Clone" />
+    </a>
+	<a alt="GitHub top language">
+        <img src="https://img.shields.io/github/languages/top/Spring-Boot-Framework/Reddit-Clone.svg" />
+    </a>
+</p>
 
 Backend to the clone of the popular social media platform [reddit](https://www.reddit.com/)
 
@@ -8,6 +29,7 @@ Backend to the clone of the popular social media platform [reddit](https://www.r
 
   - [Technology Stack](#technology-stack)
   - [Getting Started](#getting-started)
+  - [Documentation](#documentation)
   - [Explore the APIs](#explore-the-apis)
   - [Runing the tests](#running-the-tests)
   - [Deployment](#deployment)
@@ -34,6 +56,7 @@ Backend to the clone of the popular social media platform [reddit](https://www.r
 ###  Libraries and Plugins
 
 * 	[Lombok](https://projectlombok.org/) - Never write another getter or equals method again, with one annotation your class has a fully featured builder, Automate your logging variables, and much more.
+* 	[Swagger](https://swagger.io/) - Open-Source software framework backed by a large ecosystem of tools that helps developers design, build, document, and consume RESTful Web services.
 
 ### Others 
 
@@ -132,9 +155,19 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 *	In command prompt execute the **jcmd** command to print a list of all running Java processes
 *	**Taskkill /PID PROCESS_ID_OF_RUNNING_APP /F** execute this command by replacing the **PROCESS_ID_OF_RUNNING_APP** with the actual process id of the running jar found out from executing the previous command
 
+## Documentation
+
+* 	[Swagger](http://localhost:8080/swagger-ui.html) - `http://localhost:8080/swagger-ui.html`- Documentation & Testing
+
 ## Explore the APIs
 
 * 	Postman Collection for offline testing is available in the **documents** folder.
+
+### Actuator URL
+
+|             URL                   | Method | 
+|-----------------------------------|--------|
+|`http://localhost:8080/actuator/`  | POST   | 
 
 ### Application URLs
 

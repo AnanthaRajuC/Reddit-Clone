@@ -29,6 +29,16 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         return super.authenticationManagerBean();
     }
 	
+	private static final String[] SWAGGER_MATCHERS = 
+    {
+    		"/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
+    };	
+	
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception
 	{
@@ -36,7 +46,9 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 			.csrf()
 				.disable()
 			.authorizeRequests()
-				.antMatchers("/api/auth/**").permitAll()
+				.antMatchers("/api/v1/auth/**").permitAll()
+				.antMatchers("/actuator/**").permitAll()
+				.antMatchers(SWAGGER_MATCHERS).permitAll()
 				.anyRequest().authenticated();
 		
 		httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
