@@ -1,9 +1,9 @@
-package io.github.anantharajuc.rc.repository;
+package io.github.anantharajuc.rc.authentication.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import io.github.anantharajuc.rc.model.RefreshToken;
+import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 
 import java.util.Optional;
 

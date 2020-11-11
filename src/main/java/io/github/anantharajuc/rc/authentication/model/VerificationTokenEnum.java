@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.authentication.model;
 
 /**
  * Verification Token - Enum

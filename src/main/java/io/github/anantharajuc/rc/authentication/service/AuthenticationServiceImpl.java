@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.authentication;
+package io.github.anantharajuc.rc.authentication.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -16,15 +16,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.github.anantharajuc.rc.authentication.AuthenticationResponse;
+import io.github.anantharajuc.rc.authentication.UserLoginRequestDTO;
+import io.github.anantharajuc.rc.authentication.model.RefreshToken;
+import io.github.anantharajuc.rc.authentication.model.VerificationToken;
+import io.github.anantharajuc.rc.authentication.model.VerificationTokenEnum;
+import io.github.anantharajuc.rc.authentication.repository.UserRepository;
+import io.github.anantharajuc.rc.authentication.repository.VerificationTokenRepository;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.email.EmailServiceImpl;
 import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.github.anantharajuc.rc.model.User;
-import io.github.anantharajuc.rc.model.VerificationToken;
-import io.github.anantharajuc.rc.model.VerificationTokenEnum;
-import io.github.anantharajuc.rc.repository.UserRepository;
-import io.github.anantharajuc.rc.repository.VerificationTokenRepository;
 import io.github.anantharajuc.rc.security.JwtProvider;
 
 @Service
@@ -35,6 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	private final PasswordEncoder passwordEncoder;
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final EmailServiceImpl mailServiceImpl;
+	private final RefreshTokenServiceImpl refreshTokenServiceImpl;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -42,13 +46,19 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	@Autowired
 	private JwtProvider jwtProvider;
 	
-	public AuthenticationServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder, VerificationTokenRepository verificationTokenRepository, EmailServiceImpl mailServiceImpl) 
+	public AuthenticationServiceImpl(ModelMapper modelMapper, 
+									 UserRepository userRepository, 
+									 PasswordEncoder passwordEncoder, 
+									 VerificationTokenRepository verificationTokenRepository, 
+									 EmailServiceImpl mailServiceImpl,
+									 RefreshTokenServiceImpl refreshTokenServiceImpl) 
 	{
 		this.modelMapper = modelMapper;
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.verificationTokenRepository = verificationTokenRepository;
 		this.mailServiceImpl = mailServiceImpl;
+		this.refreshTokenServiceImpl = refreshTokenServiceImpl;
 	}
 	
 	@Value("${mail.subject}")
@@ -149,7 +159,27 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		String token = jwtProvider.generateToken(authentication);
+
+		return AuthenticationResponse.builder()
+				.authenticationToken(token)
+				.refreshToken(refreshTokenServiceImpl.generateRefreshToken().getToken())
+				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
+				.username(userLoginRequestDTO.getUsername())
+				.build();
+	}
+	
+	@Override
+	public AuthenticationResponse refreshToken(RefreshToken refreshToken) 
+	{
+		refreshTokenServiceImpl.validateRefreshToken(refreshToken.getToken());
+
+		String token = jwtProvider.generateTokenWithUserName(refreshToken.getUsername());
 		
-		return new AuthenticationResponse(token, userLoginRequestDTO.getUsername());
+		return AuthenticationResponse.builder()
+				.authenticationToken(token)
+				.refreshToken(refreshToken.getToken())
+				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
+				.username(refreshToken.getUsername())
+				.build();
 	}
 }

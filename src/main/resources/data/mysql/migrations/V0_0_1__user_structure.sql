@@ -63,7 +63,10 @@ CREATE TABLE `verification_token` (
 CREATE TABLE `refresh_token` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_date` datetime DEFAULT NULL,
+  `created_by` varchar(255) NOT NULL,
   `last_modified_date` datetime DEFAULT NULL,
+  `last_modified_by` varchar(255) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

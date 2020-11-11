@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.repository;
+package io.github.anantharajuc.rc.authentication.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

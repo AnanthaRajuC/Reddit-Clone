@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.github.anantharajuc.rc.authentication.repository.UserRepository;
 import io.github.anantharajuc.rc.model.User;
-import io.github.anantharajuc.rc.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
 import static java.util.Collections.singletonList;

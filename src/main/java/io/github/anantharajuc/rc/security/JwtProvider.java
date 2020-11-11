@@ -9,6 +9,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -19,9 +21,12 @@ import org.springframework.stereotype.Service;
 
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import lombok.Getter;
 
 import static io.jsonwebtoken.Jwts.parser;
+import static java.util.Date.from;
 
 @Service
 public class JwtProvider 
@@ -34,6 +39,9 @@ public class JwtProvider
 	
 	@Value("${keystore.alias}")
 	private String keystoreAlias;
+	
+	@Value("${jwt.expiration.time}")
+	@Getter private Long jwtExpirationTime;
 	
 	private KeyStore keyStore;
 
@@ -83,7 +91,20 @@ public class JwtProvider
 		return Jwts.builder()
                 .setSubject(principal.getUsername())
                 .signWith(getPrivateKey())
+                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationTime))) 
                 .compact();
+	}
+	
+	public String generateTokenWithUserName(String username) 
+	{
+		return Jwts.builder()
+				.setSubject(username)
+				.setIssuedAt(from(Instant.now()))
+				.signWith(getPrivateKey())
+				.setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationTime)))
+                .compact();
+				
+		
 	}
 	
 	public boolean validateToken(String jwt) 

@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.authentication.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,6 +12,7 @@ import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import io.github.anantharajuc.rc.audit.AuditEntity;
+import io.github.anantharajuc.rc.model.User;
 
 import java.time.Instant;
 

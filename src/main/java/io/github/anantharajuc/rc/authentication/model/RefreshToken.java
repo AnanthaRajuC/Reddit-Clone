@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.authentication.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,10 @@ import io.github.anantharajuc.rc.audit.AuditEntity;
 public class RefreshToken extends AuditEntity
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name="token")
 	String token;
+	
+	@Column(name="username")
+	String username;
 }

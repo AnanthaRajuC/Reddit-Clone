@@ -158,16 +158,15 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 ## Documentation
 
 * 	[Swagger](http://localhost:8080/swagger-ui.html) - `http://localhost:8080/swagger-ui.html`- Documentation & Testing
+* 	Postman Collection for offline testing is available in the **documents** folder.
 
 ## Explore the APIs
-
-* 	Postman Collection for offline testing is available in the **documents** folder.
 
 ### Actuator URL
 
 |             URL                   | Method | 
 |-----------------------------------|--------|
-|`http://localhost:8080/actuator/`  | POST   | 
+|`http://localhost:8080/actuator/`  | GET    | 
 
 ### Application URLs
 
