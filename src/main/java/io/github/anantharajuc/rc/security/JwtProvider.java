@@ -14,45 +14,36 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
+import io.github.anantharajuc.rc.service.AppServiceImpl;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import lombok.Getter;
-
 import static io.jsonwebtoken.Jwts.parser;
 import static java.util.Date.from;
 
 @Service
 public class JwtProvider 
 {
-	@Value("${keystore.password}")
-	private String keystorePassword;
-	
-	@Value("${keystore.file.name}")
-	private String keystoreFileName;
-	
-	@Value("${keystore.alias}")
-	private String keystoreAlias;
-	
-	@Value("${jwt.expiration.time}")
-	@Getter private Long jwtExpirationTime;
+	@Autowired
+	private AppServiceImpl appServiceImpl;
 	
 	private KeyStore keyStore;
 
 	@PostConstruct
     public void init() 
 	{
+		appServiceImpl.loadApplicationSettings();
+		
         try 
         {
             keyStore = KeyStore.getInstance("JKS");
-            InputStream resourceAsStream = getClass().getResourceAsStream("/"+keystoreFileName);
-            keyStore.load(resourceAsStream, keystorePassword.toCharArray());
+            InputStream resourceAsStream = getClass().getResourceAsStream("/"+appServiceImpl.getKeystoreFileName());
+            keyStore.load(resourceAsStream, appServiceImpl.getKeystorePassword().toCharArray());
         } 
         catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) 
         {
@@ -64,7 +55,7 @@ public class JwtProvider
 	{
         try 
         {
-            return (PrivateKey) keyStore.getKey(keystoreAlias, keystorePassword.toCharArray());
+            return (PrivateKey) keyStore.getKey(appServiceImpl.getKeystoreAlias(), appServiceImpl.getKeystorePassword().toCharArray());
         } 
         catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) 
         {
@@ -76,7 +67,7 @@ public class JwtProvider
 	{
         try 
         {
-            return keyStore.getCertificate(keystoreAlias).getPublicKey();
+            return keyStore.getCertificate(appServiceImpl.getKeystoreAlias()).getPublicKey();
         } 
         catch (KeyStoreException e) 
         {
@@ -91,7 +82,7 @@ public class JwtProvider
 		return Jwts.builder()
                 .setSubject(principal.getUsername())
                 .signWith(getPrivateKey())
-                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationTime))) 
+                .setExpiration(Date.from(Instant.now().plusMillis(appServiceImpl.getJwtExpirationTime()))) 
                 .compact();
 	}
 	
@@ -101,7 +92,7 @@ public class JwtProvider
 				.setSubject(username)
 				.setIssuedAt(from(Instant.now()))
 				.signWith(getPrivateKey())
-				.setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationTime)))
+				.setExpiration(Date.from(Instant.now().plusMillis(appServiceImpl.getJwtExpirationTime())))
                 .compact();
 				
 		

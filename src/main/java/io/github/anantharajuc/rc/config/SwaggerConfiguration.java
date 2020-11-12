@@ -1,12 +1,13 @@
 package io.github.anantharajuc.rc.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.google.common.base.Predicate;
 
+import io.github.anantharajuc.rc.service.AppServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -28,11 +29,8 @@ import static com.google.common.base.Predicates.or;
 @EnableSwagger2
 public class SwaggerConfiguration 
 {
-	@Value("${release.version}")
-	private String releaseVersion;
-	
-	@Value("${api.version}")
-	private String apiVersion;
+	@Autowired
+	private AppServiceImpl appServiceImpl;
 	
 	private static final String GROUP_NAME = "Reddit Clone";
 	
@@ -70,13 +68,15 @@ public class SwaggerConfiguration
 	 */
 	private ApiInfo apiInfo() 
 	{
+		appServiceImpl.loadApplicationSettings();
+		
 		return new ApiInfoBuilder()
 						.title(TITLE)
 						.description(DESCRIPTION)
 						.termsOfServiceUrl(TERMS_OF_SERVICE_URL)
 						.license(LICENSE)
 						.licenseUrl(LICENSE_URL)
-						.version(releaseVersion.concat("_").concat(apiVersion))
+						.version(appServiceImpl.getReleaseVersion().concat("_").concat(appServiceImpl.getApiVersion()))
 						.contact(CONTACT)
 						.build();
 	}

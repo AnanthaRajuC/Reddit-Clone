@@ -1,7 +1,6 @@
 package io.github.anantharajuc.rc.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,6 +11,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
+import io.github.anantharajuc.rc.service.AppServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 @Service
@@ -20,11 +20,12 @@ public class EmailServiceImpl implements EmailService
 {
 	@Autowired
 	private TemplateEngine templateEngine;
+	
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	@Value("${mail.from}")
-	private String mailFrom;
+	@Autowired
+	private AppServiceImpl appServiceImpl;
 	
 	@Override
 	public String mailContentBuilder(String mailContent) 
@@ -40,10 +41,12 @@ public class EmailServiceImpl implements EmailService
 	@Async
 	public void sendMail(Email notificationEmail) 
 	{
+		appServiceImpl.loadApplicationSettings();
+		
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 														          	MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-														          	
-														            messageHelper.setFrom(mailFrom);
+
+														            messageHelper.setFrom(appServiceImpl.getMailFrom());
 														            messageHelper.setTo(notificationEmail.getRecipient());
 														            messageHelper.setSubject(notificationEmail.getSubject());
 														            messageHelper.setText(notificationEmail.getBody());

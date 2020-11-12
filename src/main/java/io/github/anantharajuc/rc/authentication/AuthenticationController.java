@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.anantharajuc.rc.api.ResourcePaths;
 import io.github.anantharajuc.rc.authentication.model.RefreshToken;
-import io.github.anantharajuc.rc.authentication.service.AuthenticationServiceImpl;
-import io.github.anantharajuc.rc.authentication.service.RefreshTokenServiceImpl;
+import io.github.anantharajuc.rc.authentication.service.impl.AuthenticationServiceImpl;
+import io.github.anantharajuc.rc.authentication.service.impl.RefreshTokenServiceImpl;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

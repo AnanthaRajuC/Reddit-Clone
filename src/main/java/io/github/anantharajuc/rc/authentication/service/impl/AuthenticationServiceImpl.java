@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.authentication.service;
+package io.github.anantharajuc.rc.authentication.service.impl;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -23,12 +23,14 @@ import io.github.anantharajuc.rc.authentication.model.VerificationToken;
 import io.github.anantharajuc.rc.authentication.model.VerificationTokenEnum;
 import io.github.anantharajuc.rc.authentication.repository.UserRepository;
 import io.github.anantharajuc.rc.authentication.repository.VerificationTokenRepository;
+import io.github.anantharajuc.rc.authentication.service.AuthenticationService;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.email.EmailServiceImpl;
 import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.security.JwtProvider;
+import io.github.anantharajuc.rc.service.AppServiceImpl;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService
@@ -39,6 +41,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final EmailServiceImpl mailServiceImpl;
 	private final RefreshTokenServiceImpl refreshTokenServiceImpl;
+	private final AppServiceImpl appServiceImpl;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -51,7 +54,8 @@ public class AuthenticationServiceImpl implements AuthenticationService
 									 PasswordEncoder passwordEncoder, 
 									 VerificationTokenRepository verificationTokenRepository, 
 									 EmailServiceImpl mailServiceImpl,
-									 RefreshTokenServiceImpl refreshTokenServiceImpl) 
+									 RefreshTokenServiceImpl refreshTokenServiceImpl,
+									 AppServiceImpl appServiceImpl) 
 	{
 		this.modelMapper = modelMapper;
 		this.userRepository = userRepository;
@@ -59,21 +63,18 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		this.verificationTokenRepository = verificationTokenRepository;
 		this.mailServiceImpl = mailServiceImpl;
 		this.refreshTokenServiceImpl = refreshTokenServiceImpl;
+		this.appServiceImpl = appServiceImpl;
 	}
-	
-	@Value("${mail.subject}")
-	private String mailSubject;
 	
 	@Value("${mail.body}")
 	private String mailBody;
-	
-	@Value("${verification.token.validity}")
-	private Long verificationTokenValidity;
 	
 	@Override
 	@Transactional
 	public void signup(UserSignupRequestDTO userDto) 
 	{
+		appServiceImpl.loadApplicationSettings();
+		
 		User user;
 		
 		user = modelMapper.map(userDto, User.class); 
@@ -85,7 +86,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		
 		String token = generateVerificationToken(user);
 		
-		mailServiceImpl.sendMail(new Email(mailSubject, user.getEmail(), mailBody+token+" This link is valid for the next "+verificationTokenValidity+" minute."));
+		mailServiceImpl.sendMail(new Email(appServiceImpl.getMailSubject(), user.getEmail(), mailBody+token+" This link is valid for the next "+appServiceImpl.getVerificationTokenValidity().toString()+" minute."));
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		
 		verificationToken.setToken(token);
         verificationToken.setUser(user);
-        verificationToken.setExpiryDate(Instant.now().plus(verificationTokenValidity, ChronoUnit.MINUTES));
+        verificationToken.setExpiryDate(Instant.now().plus(appServiceImpl.getVerificationTokenValidity(), ChronoUnit.MINUTES));
         verificationToken.setStatus(VerificationTokenEnum.UNVERIFIED);
         
         verificationTokenRepository.save(verificationToken);
@@ -163,7 +164,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		return AuthenticationResponse.builder()
 				.authenticationToken(token)
 				.refreshToken(refreshTokenServiceImpl.generateRefreshToken("LOGIN",userLoginRequestDTO.getUsername()).getToken()) 
-				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
+				.expiresAt(Instant.now().plusMillis(appServiceImpl.getJwtExpirationTime()))
 				.username(userLoginRequestDTO.getUsername())
 				.build();
 	}
@@ -178,7 +179,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		return AuthenticationResponse.builder()
 				.authenticationToken(token)
 				.refreshToken(refreshTokenServiceImpl.generateRefreshToken("POST_LOGIN",refreshToken.getUsername()).getToken()) 
-				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
+				.expiresAt(Instant.now().plusMillis(appServiceImpl.getJwtExpirationTime()))
 				.username(refreshToken.getUsername())
 				.build();
 	}

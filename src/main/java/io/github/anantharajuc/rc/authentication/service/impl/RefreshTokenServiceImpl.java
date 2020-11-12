@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.authentication.service;
+package io.github.anantharajuc.rc.authentication.service.impl;
 
 import java.util.UUID;
 
@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 import io.github.anantharajuc.rc.authentication.repository.RefreshTokenRepository;
+import io.github.anantharajuc.rc.authentication.service.RefreshTokenService;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
