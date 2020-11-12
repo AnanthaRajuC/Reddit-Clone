@@ -4,9 +4,9 @@ import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 
 public interface RefreshTokenService 
 {
-	RefreshToken generateRefreshToken();
+	RefreshToken generateRefreshToken(String username);
 	
 	void validateRefreshToken(String token);
 	
-	void deleteByToken(String token);
+	void deleteByToken(String token, String username);
 }

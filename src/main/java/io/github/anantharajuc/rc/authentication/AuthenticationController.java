@@ -62,7 +62,7 @@ public class AuthenticationController
 	@PostMapping(value=ResourcePaths.Authentication.V1.LOGOUT)
 	public ResponseEntity<String> logout(@RequestBody RefreshToken refreshToken)
 	{
-		refreshTokenServiceImpl.deleteByToken(refreshToken.getToken());
+		refreshTokenServiceImpl.deleteByToken(refreshToken.getToken(), refreshToken.getUsername());
 		
 		return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully.");
 	}

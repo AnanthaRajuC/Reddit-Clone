@@ -162,7 +162,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 
 		return AuthenticationResponse.builder()
 				.authenticationToken(token)
-				.refreshToken(refreshTokenServiceImpl.generateRefreshToken().getToken())
+				.refreshToken(refreshTokenServiceImpl.generateRefreshToken(userLoginRequestDTO.getUsername()).getToken())
 				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
 				.username(userLoginRequestDTO.getUsername())
 				.build();
