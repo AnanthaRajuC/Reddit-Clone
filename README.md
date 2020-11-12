@@ -174,8 +174,9 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 |---------------------------------------------------------------------|--------|-----------------------------------------------|---------------------------|
 |`http://localhost:8080/api/v1/auth/signup`                           | POST   |                                               | [JSON](#signup)           |
 |`http://localhost:8080/api/v1/auth/verification/{verification-token}`| GET    |                                               |                           |
-|`http://localhost:8080/api/v1/auth/login`                            | POST   |Bearer Token is generated                      | [JSON](#login)            |
+|`http://localhost:8080/api/v1/auth/login`                            | POST   |Bearer Token, Refresh Token is generated       | [JSON](#login)            |
 |`http://localhost:8080/api/v1/subreddit`                             | POST   |Bearer Token should be passed for authorization| [JSON](#subreddit)        |
+|`http://localhost:8080/api/v1/auth/refresh/token`                    | POST   |Refresh Token from login should be passed      | [JSON](#refresh-token)    |
 
 ### Sample Valid JSON Request Bodys
 
@@ -201,6 +202,14 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 {
     "name":"my-cool-subreddit",
     "description":"My subreddit for all thing cool."
+}
+```
+
+##### <a id="refresh-token">Refresh Token -> /api/auth/refresh/token</a>
+```json
+{
+    "token":"1178cd43-21d2-45b4-8b5f-c79aa1d5b76e",
+    "username":"johndoe"
 }
 ```
 
@@ -245,7 +254,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-  - **Anantha Raju C** - [AnanthaRajuC](https://github.com/AnanthaRajuC)
+  - **Anantha Raju C** - [@AnanthaRajuC](https://github.com/AnanthaRajuC)
 
 See also the list of [contributors](https://github.com/Spring-Boot-Framework/Reddit-Clone/graphs/contributors) who participated in this project.
 

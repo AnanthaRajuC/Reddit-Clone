@@ -19,53 +19,53 @@ public class RefreshTokenServiceImpl implements RefreshTokenService
 {
 	private final RefreshTokenRepository refreshTokenRepository;
 	
-	public RefreshToken generateInitialRefreshToken(String username) 
-	{
-		RefreshToken refreshToken = new RefreshToken(); 
-		 
-		 refreshToken.setToken(UUID.randomUUID().toString());
-		 refreshToken.setUsername(username); 
-		 
-		 return refreshTokenRepository.save(refreshToken);
-	}
-	
 	@Override
-	public RefreshToken generateRefreshToken(String username) 
-	{		
-		RefreshToken refreshToken = refreshTokenRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("Invalid Refresh Token"));
-		refreshToken.setToken(UUID.randomUUID().toString());
-		refreshToken.setUsername(username);
+	public RefreshToken generateRefreshToken(String stage, String username) 
+	{
+		RefreshToken refreshToken = new RefreshToken();
+		
+		if(stage.equalsIgnoreCase("LOGIN"))
+		{
+			log.info("LOGIN token generation");
+			
+			refreshToken.setToken(UUID.randomUUID().toString());
+			refreshToken.setUsername(username); 
+		}
+		else if(stage.equalsIgnoreCase("POST_LOGIN"))
+		{
+			log.info("POST_LOGIN token generation");
+			
+			refreshToken = refreshTokenRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("Invalid Refresh Token"));
+			
+			refreshToken.setToken(UUID.randomUUID().toString());
+			refreshToken.setUsername(username); 
+		}
+
 		return refreshTokenRepository.save(refreshToken);
-		 /*RefreshToken refreshToken = new RefreshToken(); 
-		 
-		 refreshToken.setToken(UUID.randomUUID().toString());
-		 refreshToken.setUsername(username); 
-		 
-		 return refreshTokenRepository.save(refreshToken);*/
 	}
 
 	@Override
 	public void validateRefreshToken(String token) 
 	{
+		log.info("Validating Refresh Token");
+		
 		refreshTokenRepository.findByToken(token).orElseThrow(() -> new SpringRedditException("Invalid Refresh Token"));
 	}
 
 	@Override
 	public void deleteByToken(String token, String username) 
 	{
-		log.info("Delete by token method start");
-		
 		RefreshToken refreshToken = refreshTokenRepository.findByToken(token).orElseThrow(() -> new SpringRedditException("Invalid Refresh Token"));
 
 		if(refreshToken.getToken().equals(token) && refreshToken.getUsername().equals(username)) 
 		{
-			log.info("Delete by token condition satisfied");	
-				
 			refreshTokenRepository.deleteByToken(token); 
+			
+			log.info("Token deletion successful.");
 		}
 		else
 		{
-			log.info("Token, Username mismatch!");	
+			log.info("Token, Username mismatch!");
 			
 			throw new SpringRedditException("Token, Username mismatch!");
 		}
