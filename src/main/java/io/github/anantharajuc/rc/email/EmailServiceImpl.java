@@ -3,6 +3,7 @@ package io.github.anantharajuc.rc.email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
@@ -22,7 +23,10 @@ public class EmailServiceImpl implements EmailService
 	private TemplateEngine templateEngine;
 	
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSender javaMailSender;
+	
+	@Autowired
+	private JavaMailSenderImpl javaMailSenderImpl;
 	
 	@Autowired
 	private AppServiceImpl appServiceImpl;
@@ -33,7 +37,7 @@ public class EmailServiceImpl implements EmailService
 		Context context = new Context();
 		
 		context.setVariable("message", mailContent);
-		
+
 		return templateEngine.process("mailTemplate", context);
 	}
 
@@ -42,6 +46,12 @@ public class EmailServiceImpl implements EmailService
 	public void sendMail(Email notificationEmail) 
 	{
 		appServiceImpl.loadApplicationSettings();
+
+		javaMailSenderImpl.setUsername(appServiceImpl.getSpringMailUsername()); 
+		javaMailSenderImpl.setPassword(appServiceImpl.getSpringMailPassword());
+		javaMailSenderImpl.setPort(appServiceImpl.getSpringMailPort());
+		javaMailSenderImpl.setProtocol(appServiceImpl.getSpringMailProtocol());
+		javaMailSenderImpl.setHost(appServiceImpl.getSpringMailHost());
 		
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 														          	MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
@@ -50,11 +60,12 @@ public class EmailServiceImpl implements EmailService
 														            messageHelper.setTo(notificationEmail.getRecipient());
 														            messageHelper.setSubject(notificationEmail.getSubject());
 														            messageHelper.setText(notificationEmail.getBody());
+														            messageHelper.setReplyTo(appServiceImpl.getMailFrom());
 														         };
         
         try 
         {
-            mailSender.send(messagePreparator);
+            javaMailSender.send(messagePreparator);
             
             log.info("Activation email sent!!");
         } 

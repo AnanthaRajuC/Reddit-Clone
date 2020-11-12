@@ -1,7 +1,6 @@
 package io.github.anantharajuc.rc;
 
 import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,7 +25,7 @@ public class RedditCloneApplication implements CommandLineRunner
 	private AppServiceImpl appServiceImpl;
 	
 	public static void main(String[] args) 
-	{
+	{      
 		SpringApplication.run(RedditCloneApplication.class, args);
 	}
 

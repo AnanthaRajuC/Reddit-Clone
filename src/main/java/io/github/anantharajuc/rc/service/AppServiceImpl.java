@@ -19,15 +19,26 @@ import lombok.extern.log4j.Log4j2;
 public class AppServiceImpl implements AppService
 {
 	private String applicationName;
+	
 	private String releaseVersion;
 	private String apiVersion;
+	
 	private String keystoreFileName;
 	private String keystoreAlias;
 	private String keystorePassword;
+	
 	private Long verificationTokenValidity;
 	private Long jwtExpirationTime;
+	
 	private String mailFrom;
 	private String mailSubject;
+
+	private int springMailPort;
+	private String springMailProtocol;
+	private String springMailUsername;
+	private String springMailPassword;
+	
+	private String springMailHost;
 	
 	@Autowired
 	private ApplicationSettingsRepository applicationSettingsRepository;
@@ -56,5 +67,12 @@ public class AppServiceImpl implements AppService
 		setJwtExpirationTime(Long.parseLong(applicationSettingsHashMap.get("jwtExpirationTime")));
 		setMailFrom(applicationSettingsHashMap.get("mailFrom"));
 		setMailSubject(applicationSettingsHashMap.get("mailSubject"));
+
+		setSpringMailPort(Integer.parseInt(applicationSettingsHashMap.get("springMailPort")));
+		setSpringMailProtocol(applicationSettingsHashMap.get("springMailProtocol"));
+		setSpringMailUsername(applicationSettingsHashMap.get("springMailUsername"));
+		setSpringMailPassword(applicationSettingsHashMap.get("springMailPassword"));
+		
+		setSpringMailHost(applicationSettingsHashMap.get("springMailHost"));
 	}
 }
