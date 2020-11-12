@@ -162,7 +162,8 @@ public class AuthenticationServiceImpl implements AuthenticationService
 
 		return AuthenticationResponse.builder()
 				.authenticationToken(token)
-				.refreshToken(refreshTokenServiceImpl.generateRefreshToken(userLoginRequestDTO.getUsername()).getToken())
+				//.refreshToken(refreshTokenServiceImpl.generateRefreshToken(userLoginRequestDTO.getUsername()).getToken())
+				.refreshToken(refreshTokenServiceImpl.generateInitialRefreshToken(userLoginRequestDTO.getUsername()).getToken())
 				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
 				.username(userLoginRequestDTO.getUsername())
 				.build();
@@ -177,7 +178,8 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		
 		return AuthenticationResponse.builder()
 				.authenticationToken(token)
-				.refreshToken(refreshToken.getToken())
+				//.refreshToken(refreshToken.getToken())
+				.refreshToken(refreshTokenServiceImpl.generateRefreshToken(refreshToken.getUsername()).getToken()) 
 				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationTime()))
 				.username(refreshToken.getUsername())
 				.build();

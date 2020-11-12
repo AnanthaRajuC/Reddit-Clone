@@ -1,6 +1,5 @@
 package io.github.anantharajuc.rc.authentication.service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -20,15 +19,29 @@ public class RefreshTokenServiceImpl implements RefreshTokenService
 {
 	private final RefreshTokenRepository refreshTokenRepository;
 	
-	@Override
-	public RefreshToken generateRefreshToken(String username) 
+	public RefreshToken generateInitialRefreshToken(String username) 
 	{
-		 RefreshToken refreshToken = new RefreshToken(); 
+		RefreshToken refreshToken = new RefreshToken(); 
 		 
 		 refreshToken.setToken(UUID.randomUUID().toString());
 		 refreshToken.setUsername(username); 
 		 
 		 return refreshTokenRepository.save(refreshToken);
+	}
+	
+	@Override
+	public RefreshToken generateRefreshToken(String username) 
+	{		
+		RefreshToken refreshToken = refreshTokenRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("Invalid Refresh Token"));
+		refreshToken.setToken(UUID.randomUUID().toString());
+		refreshToken.setUsername(username);
+		return refreshTokenRepository.save(refreshToken);
+		 /*RefreshToken refreshToken = new RefreshToken(); 
+		 
+		 refreshToken.setToken(UUID.randomUUID().toString());
+		 refreshToken.setUsername(username); 
+		 
+		 return refreshTokenRepository.save(refreshToken);*/
 	}
 
 	@Override
@@ -43,13 +56,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService
 		log.info("Delete by token method start");
 		
 		RefreshToken refreshToken = refreshTokenRepository.findByToken(token).orElseThrow(() -> new SpringRedditException("Invalid Refresh Token"));
-		//Optional<RefreshToken> refreshToken = refreshTokenRepository.findByToken(token);
-		
-		//log.info(refreshToken.isPresent());
-		//log.info(refreshToken.get().getToken().equals(token));
-		//log.info(refreshToken.get().getUsername().equals(username));
-		
-		
+
 		if(refreshToken.getToken().equals(token) && refreshToken.getUsername().equals(username)) 
 		{
 			log.info("Delete by token condition satisfied");	
