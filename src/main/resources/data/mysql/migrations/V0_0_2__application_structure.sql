@@ -1,23 +1,3 @@
-/*
- * Engine: MySQL
- * Version: 0.0.1
- * Description: Initial database structure
- */
-
-/*
--- create schema
-CREATE SCHEMA [schema_name];
-
--- use schema
-USE [schema_name];
-
--- Create user 
-create user 'USERNAME'@'IPADDRESS' identified by 'PASSWORD';
-
--- Grant privileges to user
-grant all privileges on *.* to 'USERNAME'@'IPADDRESS' with grant option;
- */
-
 --
 -- Table structure for table `sub_reddit`
 --
@@ -90,3 +70,18 @@ CREATE TABLE `vote` (
   PRIMARY KEY (`id`),
   CONSTRAINT `FKaa8qetak9jeuh1ub7ielwimu7` FOREIGN KEY (`id`) REFERENCES `post` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Table structure for table `application_settings`
+--
+
+CREATE TABLE `application_settings` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_by` varchar(255) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(255) NOT NULL,
+  `last_modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `appKey` varchar(255) NOT NULL,
+  `appValue` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
