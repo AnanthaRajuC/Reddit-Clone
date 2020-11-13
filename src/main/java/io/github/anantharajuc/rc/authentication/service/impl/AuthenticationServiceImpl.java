@@ -28,8 +28,8 @@ import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.email.EmailServiceImpl;
 import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
-import io.github.anantharajuc.rc.model.User;
 import io.github.anantharajuc.rc.security.JwtProvider;
+import io.github.anantharajuc.rc.security.user.model.User;
 import io.github.anantharajuc.rc.service.AppServiceImpl;
 
 @Service
@@ -146,7 +146,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		String username = verificationToken.getUser().getUsername();
 		
 		User user = userRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("User does not exist"));
-	
+
 		user.setEnabled(true);
 		
 		userRepository.save(user);

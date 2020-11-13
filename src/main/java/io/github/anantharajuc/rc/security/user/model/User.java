@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.model;
+package io.github.anantharajuc.rc.security.user.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -58,7 +58,16 @@ public class User extends AuditEntity
     @ApiModelProperty(position=7, notes="A secret word/phrase used to gain access to the application.", value="${User.password}", example="$+r0nG10$$w0rD")
     String password;
 
-    @Column(name="enabled")
+    @Column(name="isEnabled")
     @ApiModelProperty(position=8, notes="Flag to mark id the account is enabled after token verification via email", value="${User.enabled}")
-    boolean enabled;
+    boolean isEnabled;
+    
+    @Column(name="isAccountNonExpired")
+	boolean isAccountNonExpired;
+	
+	@Column(name="isAccountNonLocked")
+	boolean isAccountNonLocked;
+	
+	@Column(name="isCredentialsNonExpired")
+	boolean isCredentialsNonExpired;
 }

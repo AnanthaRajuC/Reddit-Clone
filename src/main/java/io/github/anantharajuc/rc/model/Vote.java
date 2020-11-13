@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import io.github.anantharajuc.rc.audit.AuditEntity;
+import io.github.anantharajuc.rc.security.user.model.User;
 
 import static javax.persistence.FetchType.LAZY;
 

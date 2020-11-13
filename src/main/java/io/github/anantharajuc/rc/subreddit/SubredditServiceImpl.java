@@ -6,9 +6,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.github.anantharajuc.rc.RedditCloneApplication;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Service
+@Log4j2
 @AllArgsConstructor
 public class SubredditServiceImpl implements SubredditService
 {

@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.lang.Nullable;
 
 import io.github.anantharajuc.rc.audit.AuditEntity;
+import io.github.anantharajuc.rc.security.user.model.User;
 import io.github.anantharajuc.rc.subreddit.Subreddit;
 
 import javax.persistence.*;

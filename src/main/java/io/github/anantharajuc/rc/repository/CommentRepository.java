@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import io.github.anantharajuc.rc.model.Comment;
 import io.github.anantharajuc.rc.model.Post;
-import io.github.anantharajuc.rc.model.User;
+import io.github.anantharajuc.rc.security.user.model.User;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import io.github.anantharajuc.rc.authentication.UserLoginRequestDTO;
 import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 import io.github.anantharajuc.rc.authentication.model.VerificationToken;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
-import io.github.anantharajuc.rc.model.User;
+import io.github.anantharajuc.rc.security.user.model.User;
 
 public interface AuthenticationService 
 {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.anantharajuc.rc.authentication.repository.UserRepository;
-import io.github.anantharajuc.rc.model.User;
+import io.github.anantharajuc.rc.security.user.model.User;
 import lombok.AllArgsConstructor;
 
 import static java.util.Collections.singletonList;
