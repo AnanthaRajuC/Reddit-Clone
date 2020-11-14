@@ -21,7 +21,6 @@ import io.github.anantharajuc.rc.authentication.UserLoginRequestDTO;
 import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 import io.github.anantharajuc.rc.authentication.model.VerificationToken;
 import io.github.anantharajuc.rc.authentication.model.VerificationTokenEnum;
-import io.github.anantharajuc.rc.authentication.repository.UserRepository;
 import io.github.anantharajuc.rc.authentication.repository.VerificationTokenRepository;
 import io.github.anantharajuc.rc.authentication.service.AuthenticationService;
 import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
@@ -30,6 +29,7 @@ import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import io.github.anantharajuc.rc.security.JwtProvider;
 import io.github.anantharajuc.rc.security.user.model.User;
+import io.github.anantharajuc.rc.security.user.repository.UserRepository;
 import io.github.anantharajuc.rc.service.AppServiceImpl;
 
 @Service
@@ -81,6 +81,9 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		
 		user.setPassword(passwordEncoder.encode(userDto.getPassword())); 
 		user.setEnabled(false); 
+		user.setAccountNonExpired(false);
+		user.setAccountNonLocked(false);
+		user.setCredentialsNonExpired(false);
 		
 		userRepository.save(user);
 		
@@ -148,6 +151,9 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		User user = userRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("User does not exist"));
 
 		user.setEnabled(true);
+		user.setAccountNonExpired(true);
+		user.setAccountNonLocked(true);
+		user.setCredentialsNonExpired(true);
 		
 		userRepository.save(user);
 	}

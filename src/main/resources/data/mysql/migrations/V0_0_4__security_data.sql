@@ -12,8 +12,10 @@ INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('PERSON_C
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('PERSON_READ','Installation','Installation');
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('PERSON_UPDATE','Installation','Installation');
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('PERSON_DELETE','Installation','Installation');
+
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('COURSE_READ','Installation','Installation');
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('COURSE_WRITE','Installation','Installation');
+
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('RBAC_USER_CREATE','Installation','Installation');
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('RBAC_USER_READ','Installation','Installation');
 INSERT INTO `permission`(`name`,`created_by`,`last_modified_by`)VALUES('RBAC_USER_UPDATE','Installation','Installation');

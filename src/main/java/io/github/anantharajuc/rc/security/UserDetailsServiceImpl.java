@@ -1,21 +1,18 @@
 package io.github.anantharajuc.rc.security;
 
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.anantharajuc.rc.authentication.repository.UserRepository;
+import io.github.anantharajuc.rc.security.user.UserDetailsImpl;
 import io.github.anantharajuc.rc.security.user.model.User;
+import io.github.anantharajuc.rc.security.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
-import static java.util.Collections.singletonList;
-
+@Log4j2
 @Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService
@@ -26,13 +23,19 @@ public class UserDetailsServiceImpl implements UserDetailsService
 	@Transactional(readOnly=true)
 	public UserDetails loadUserByUsername(String username)
 	{
-		User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("Username %s not found", username)));
+		log.info("-----> loadUserByUsername  : "+username);
 		
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities("USER"));
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException(String.format("Username %s not found", username)));
+		
+		UserDetailsImpl userDetailsImpl = new UserDetailsImpl(user);
+ 
+		return new org.springframework.security.core.userdetails.User(userDetailsImpl.getUsername(), 
+																	  userDetailsImpl.getPassword(), 
+																	  userDetailsImpl.isEnabled(), 
+																	  userDetailsImpl.isAccountNonExpired(), 
+																	  userDetailsImpl.isCredentialsNonExpired(), 
+																	  userDetailsImpl.isAccountNonLocked(), 
+																	  userDetailsImpl.getAuthorities());
 	}
-	
-	private Collection<? extends GrantedAuthority> getAuthorities(String role) 
-	{
-        return singletonList(new SimpleGrantedAuthority(role));
-    }
 }

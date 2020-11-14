@@ -170,6 +170,12 @@ To shutdown the jar, follow the below mentioned steps on a Windows machine.
 
 ### Application URLs
 
+|     Username     | Password |     Role     |                      Permission                       |  Resource  |
+|------------------|----------|--------------|-------------------------------------------------------|------------|
+|`johndoe`         |`password`|`PERSON`      |                                                       |`/user`     |
+|`AdminUser`       |`password`|`ADMIN`       |`PERSON_CREATE,PERSON_READ,PERSON_UPDATE,PERSON_DELETE`|`/user`     |
+|`AdminTraineeUser`|`password`|`ADMINTRAINEE`|`PERSON_READ`                                          |`/user`     |
+
 |                                          URL                        | Method |                    Remarks                    | Sample Valid Request Body |
 |---------------------------------------------------------------------|--------|-----------------------------------------------|---------------------------|
 |`http://localhost:8080/api/v1/auth/signup`                           | POST   |                                               | [JSON](#signup)           |

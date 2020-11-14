@@ -35,7 +35,5 @@ public class RedditCloneApplication implements CommandLineRunner
 		log.info("Reddit Clone Application Started on {}", LocalDateTime.now());	
 		
 		appServiceImpl.loadApplicationSettings();
-		
-		log.info("-----> Application Name    : "+appServiceImpl.getApplicationName());	
 	}
 }
