@@ -49,7 +49,7 @@
 		<jjwt-impl.version>0.11.2</jjwt-impl.version>
 		<jjwt-jackson.version>0.11.2</jjwt-jackson.version>
 		<hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
-		<hibernate-validator-annotation-processor.version>6.1.6.Final</hibernate-validator-annotation-processor.version>
+		<hibernate-validator-annotation-processor.version>7.0.0.Final</hibernate-validator-annotation-processor.version>
 		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 		<springfox-swagger-ui.version>2.10.5</springfox-swagger-ui.version>
 	</properties>
