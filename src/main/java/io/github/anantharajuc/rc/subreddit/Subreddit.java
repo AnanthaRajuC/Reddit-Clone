@@ -14,9 +14,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import io.github.anantharajuc.rc.audit.AuditEntity;
-import io.github.anantharajuc.rc.model.Post;
-import io.github.anantharajuc.rc.security.user.model.User;
+import io.github.anantharajuc.rc.domain.model.Post;
+import io.github.anantharajuc.rc.domain.model.common.AuditEntity;
+import io.github.anantharajuc.rc.infra.security.user.model.User;
 
 import java.util.List;
 

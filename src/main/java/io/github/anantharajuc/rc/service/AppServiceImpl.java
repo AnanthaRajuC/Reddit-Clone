@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.anantharajuc.rc.model.ApplicationSetings;
+import io.github.anantharajuc.rc.domain.model.ApplicationSetings;
 import io.github.anantharajuc.rc.repository.ApplicationSettingsRepository;
 import lombok.Getter;
 import lombok.Setter;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import io.github.anantharajuc.rc.exceptions.SpringRedditException;
+import io.github.anantharajuc.rc.infra.exception.SpringRedditException;
 import io.github.anantharajuc.rc.service.AppServiceImpl;
 import lombok.extern.log4j.Log4j2;
 

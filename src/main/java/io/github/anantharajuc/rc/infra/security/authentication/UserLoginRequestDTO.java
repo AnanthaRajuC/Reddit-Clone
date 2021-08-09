@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.subreddit;
+package io.github.anantharajuc.rc.infra.security.authentication;
 
 import io.github.anantharajuc.rc.domain.model.common.AuditEntity;
 import lombok.AccessLevel;
@@ -13,11 +13,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper=false)
-public class SubredditDTO extends AuditEntity
+public class UserLoginRequestDTO extends AuditEntity
 {
 	private static final long serialVersionUID = 1L;
-
-	String name;
-    String description;
-    Integer numberOfPosts;
+	
+	String username;
+    String password;
 }
