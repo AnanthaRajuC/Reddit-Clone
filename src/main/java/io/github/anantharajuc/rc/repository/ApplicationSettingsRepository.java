@@ -6,9 +6,8 @@ import org.springframework.stereotype.Repository;
 import io.github.anantharajuc.rc.model.ApplicationSetings;
 
 /**
- * Repository class for <code>ApplicationSetings</code> domain object. All method names are compliant with Spring Data naming
- * conventions so this interface can easily be extended for Spring Data See here: http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
- *
+ * Repository class for <code>ApplicationSetings</code> domain object. 
+ * 
  * @author <a href="mailto:arcswdev@gmail.com">Anantha Raju C</a>
  */
 @Repository

@@ -12,6 +12,11 @@ import io.github.anantharajuc.rc.exceptions.SpringRedditException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+/**
+ * Refresh Token Service Implementation
+ * 
+ * @author <a href="mailto:arcswdev@gmail.com">Anantha Raju C</a>
+ */
 @Service
 @AllArgsConstructor
 @Transactional

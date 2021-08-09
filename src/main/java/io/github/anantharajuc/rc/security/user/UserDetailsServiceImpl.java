@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.security;
+package io.github.anantharajuc.rc.security.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.anantharajuc.rc.security.user.UserDetailsImpl;
 import io.github.anantharajuc.rc.security.user.model.User;
 import io.github.anantharajuc.rc.security.user.repository.UserRepository;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package io.github.anantharajuc.rc.dto;
+package io.github.anantharajuc.rc.authentication;
 
 import io.github.anantharajuc.rc.audit.AuditEntity;
 import lombok.AccessLevel;

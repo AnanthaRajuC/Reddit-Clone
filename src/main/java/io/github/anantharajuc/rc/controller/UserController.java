@@ -11,6 +11,12 @@ import io.github.anantharajuc.rc.security.user.model.User;
 import io.github.anantharajuc.rc.security.user.service.RedditUserServiceImpl;
 import lombok.AllArgsConstructor;
 
+/*
+ * Reddit User Controller
+ *
+ * @author <a href="mailto:arcswdev@gmail.com">Anantha Raju C</a>
+ *
+ */
 @RestController
 @RequestMapping(value="/user")
 @AllArgsConstructor

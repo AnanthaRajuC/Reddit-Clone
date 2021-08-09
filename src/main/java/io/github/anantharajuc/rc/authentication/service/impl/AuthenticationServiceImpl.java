@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.anantharajuc.rc.authentication.AuthenticationResponse;
 import io.github.anantharajuc.rc.authentication.UserLoginRequestDTO;
+import io.github.anantharajuc.rc.authentication.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 import io.github.anantharajuc.rc.authentication.model.VerificationToken;
 import io.github.anantharajuc.rc.authentication.model.VerificationTokenEnum;
 import io.github.anantharajuc.rc.authentication.repository.VerificationTokenRepository;
 import io.github.anantharajuc.rc.authentication.service.AuthenticationService;
-import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.github.anantharajuc.rc.email.EmailServiceImpl;
 import io.github.anantharajuc.rc.email.Email;
 import io.github.anantharajuc.rc.exceptions.SpringRedditException;
@@ -32,6 +32,11 @@ import io.github.anantharajuc.rc.security.user.model.User;
 import io.github.anantharajuc.rc.security.user.repository.UserRepository;
 import io.github.anantharajuc.rc.service.AppServiceImpl;
 
+/**
+ * Authentication Service Implementation
+ * 
+ * @author <a href="mailto:arcswdev@gmail.com">Anantha Raju C</a>
+ */
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService
 {

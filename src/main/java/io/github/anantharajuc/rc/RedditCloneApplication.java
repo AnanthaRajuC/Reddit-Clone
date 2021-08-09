@@ -11,7 +11,7 @@ import io.github.anantharajuc.rc.service.AppServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Reddit Clone
+ * Reddit Clone - Backend to the clone of the popular social media platform reddit
  *
  * @author <a href="mailto:arcswdev@gmail.com">Anantha Raju C</a>
  *

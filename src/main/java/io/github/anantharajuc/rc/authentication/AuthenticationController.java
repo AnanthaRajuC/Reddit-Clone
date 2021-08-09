@@ -12,7 +12,6 @@ import io.github.anantharajuc.rc.api.ResourcePaths;
 import io.github.anantharajuc.rc.authentication.model.RefreshToken;
 import io.github.anantharajuc.rc.authentication.service.impl.AuthenticationServiceImpl;
 import io.github.anantharajuc.rc.authentication.service.impl.RefreshTokenServiceImpl;
-import io.github.anantharajuc.rc.dto.UserSignupRequestDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -21,6 +20,12 @@ import static org.springframework.http.HttpStatus.OK;
 
 import javax.validation.Valid;
 
+/*
+ * Person Command Controller
+ *
+ * @author <a href="mailto:arcswdev@gmail.com">Anantha Raju C</a>
+ *
+ */
 @RestController
 @RequestMapping(value=ResourcePaths.Authentication.V1.ROOT)
 @Api(value="Authentication", tags="Authentication")
